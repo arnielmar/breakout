@@ -1,0 +1,87 @@
+<html>
+  <meta charset="utf-8">
+
+  <script id="vertex-shader1" type="x-shader/x-vertex">
+
+    attribute vec4 vPosition1;
+
+    uniform mat4 projection1;
+    uniform mat4 modelview1;
+
+    void main() {
+      gl_Position = projection1 * modelview1 * vPosition1;
+    }
+
+  </script>
+
+  <script id="vertex-shader2" type="x-shader/x-vertex">
+
+    attribute vec4 vPosition2;
+    attribute vec2 vTexCoord;
+
+    varying vec2 fTexCoord;
+
+    uniform mat4 projection2;
+    uniform mat4 modelview2;
+
+    void main() {
+      fTexCoord = vTexCoord;
+      gl_Position = projection2 * modelview2 * vPosition2;
+    } 
+  </script>
+
+  <script id="fragment-shader1" type="x-shader/x-fragment">
+  
+    precision mediump float;
+
+    uniform vec4 fColor;
+
+    void main() {
+      gl_FragColor = fColor;
+    }
+  
+  </script>
+
+  <script id="fragment-shader2" type="x-shader/x-fragment">
+
+    precision mediump float;
+
+    varying vec2 fTexCoord;
+
+    uniform sampler2D texture;
+
+    void main() {
+      gl_FragColor = texture2D(texture, fTexCoord);
+    }
+  </script>
+
+  <script type="text/javascript" src="../Common/webgl-utils.js"></script>
+  <script type="text/javascript" src="../Common/initShaders.js"></script>
+  <script type="text/javascript" src="../Common/MV.js"></script>
+  <script type="text/javascript" src="breakout.js"></script>
+
+  <body>
+    <table style="width: 100%">
+      <tr>
+        <td>
+          <canvas id="gl-canvas" width="800" height="700" >
+        </td>
+        <td style="padding: 0 10px">
+          <p id="information">
+            Markmið leiksins er að ná öllum lituðu kössunum áður en þú klárar lífin þín. <br>
+            Þú hefur 3 líf og þú missir líf ef kúlan dettur niður í hyldýpið. <br>
+            Þú getur hreyft spaðann til hliðanna með örvatökkunum. <br>
+            Einnig geturu fært áhorfandann til. <br>
+            Upp- og niður örvatakkarnir færa áhorfandann nær og fjær leiksviðinu. <br>
+            'w' og 's' færa áhorfandann ofar og neðar. <br>
+            'a' og 'd' færa áhorfandann til hliðanna.
+          </p>
+        </td>
+      </tr>
+    </table>
+
+    <img id = "WallImage" src = "black.jpg" hidden></img>
+    <img id = "FloorImage" src = "firetile2.jpg" hidden></img>
+  </body>
+
+</html>
